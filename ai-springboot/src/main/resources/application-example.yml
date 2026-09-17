@@ -1,0 +1,16 @@
+# 私密配置模板：复制本文件为 application-local.yml 并填入你自己的真实值
+# （application-local.yml 已被 .gitignore 排除，不会提交到仓库）
+
+spring:
+  datasource:
+    # 本地 MySQL root 密码
+    password: your-mysql-password
+
+  ai:
+    openai:
+      # 你的 DeepSeek API Key：https://platform.deepseek.com 申请
+      api-key: sk-your-deepseek-api-key
+
+jwt:
+  # JWT 签名密钥（随机长字符串即可，勿使用示例值上线）
+  secret: your-jwt-secret-at-least-32-chars

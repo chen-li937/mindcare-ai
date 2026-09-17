@@ -1,0 +1,30 @@
+# ===== 私密配置与个人文件（严禁入库） =====
+ai-springboot/src/main/resources/application-local.yml
+Resume_项目描述.md
+AI_startup.md
+
+# ===== 旧版 SQL（保留 mind_assistant(1).sql 为最新种子数据） =====
+mind_assistant.sql
+
+# ===== Java / Spring Boot =====
+ai-springboot/target/
+ai-springboot/logs/
+*.class
+*.log
+hs_err_*
+
+# ===== IDE =====
+.idea/
+*.iml
+.vscode/
+
+# ===== Node / Vue =====
+code/ai-vue/node_modules/
+code/ai-vue/dist/
+code/ai-vue/*.local
+npm-debug.log*
+
+# ===== 系统文件 =====
+.DS_Store
+Thumbs.db
+desktop.ini

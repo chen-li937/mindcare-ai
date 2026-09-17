@@ -1,0 +1,36 @@
+package com.example.aispringboot.util;
+
+import org.springframework.http.HttpStatus;
+import cn.hutool.json.JSONUtil;
+import com.example.aispringboot.common.Result;
+import com.example.aispringboot.common.ResultCode;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.MediaType;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+
+public class ResponseUtil {
+    //过滤器中的异常响应
+    public static void writeError(HttpServletResponse response, ResultCode resultCode){
+        //根据不同结果返回不同的响应
+        int status = switch (resultCode){
+            case UNAUTHORIZED, ACCESS_UNAUTHORIZED, TOKEN_INVALID, TOKEN_EXPIRED, TOKEN_BLACKLIST -> HttpStatus.UNAUTHORIZED.value();
+            case TOKEN_ACCESS_FORBIDDEN -> HttpStatus.FORBIDDEN.value();
+            default -> HttpStatus.BAD_REQUEST.value();
+        };
+        response.setStatus(status);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+
+        //写入响应
+        try (PrintWriter writer = response.getWriter()) {
+            String jsonResponse = JSONUtil.toJsonStr(Result.error(resultCode.getCode(), resultCode.getMsg(),null));
+            writer.println(jsonResponse);
+            writer.flush();//确保将响应内容写入输出流
+        } catch (IOException e) {
+            System.out.println("写入响应失败: " + e.getMessage());
+        }
+    }
+}
